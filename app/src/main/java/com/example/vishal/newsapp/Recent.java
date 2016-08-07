@@ -31,7 +31,7 @@ public class Recent extends Fragment {
 
     ExpandableListView lv;
     public String[] groups =new String[]{};
-    public String[][] children =new String[][]{{}};
+    public String[][] children =new String[][]{};
 
 
 
@@ -183,24 +183,32 @@ public class Recent extends Fragment {
                     inputStream =httpsURLConnection.getInputStream();
                     JSONObject jsonRootObject = new JSONObject(convertStreamToString(inputStream));
                     JSONArray jsonArray =jsonRootObject.getJSONArray("results");
-                    String strings[] = new String[jsonArray.length()];
-                    String child[][] =new String[jsonArray.length()][jsonArray.length()+1];
+                    String group[] = new String[jsonArray.length()];
+                    String child[][] =new String[jsonArray.length()][jsonArray.length()];
                     for(int i =0; i<jsonArray.length();i++){
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
 
-                        strings[i] =jsonObject.getString("title");
-                        System.out.println("HG"+strings[i]);
+                        group[i] =jsonObject.getString("title");
+                        System.out.println("HG"+group[i]);
                     }
 
-                    for(int j =0 ;j<jsonArray.length();j++){
-                          JSONObject json =jsonArray.getJSONObject(j);
-                          child[j][j+1] =json.getString("abstract");
-                            System.out.println("ONN"+child[j][j+1]);
+                    for(int j =0 ;j<jsonArray.length();j++)
+                    {
+
+                        for(int k =0;k<jsonArray.length();k++){
+
+                                JSONObject json = jsonArray.getJSONObject(j);
+                                child[j][k] = json.getString("abstract");
+                                System.out.println("ONN" + child[j][k]);
+
+
+                        }
+
 
 
                     }
                         children =child;
-                        groups =strings;
+                        groups =group;
 
 
 

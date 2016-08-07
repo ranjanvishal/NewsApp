@@ -179,12 +179,12 @@ public class Recent extends Fragment {
                 try {
                     URL url =new URL(stringUrl);
                     httpsURLConnection =(HttpsURLConnection) url.openConnection();
-                    httpsURLConnection.setConnectTimeout(10000);
+                    httpsURLConnection.setConnectTimeout(100000000);
                     inputStream =httpsURLConnection.getInputStream();
                     JSONObject jsonRootObject = new JSONObject(convertStreamToString(inputStream));
                     JSONArray jsonArray =jsonRootObject.getJSONArray("results");
                     String group[] = new String[jsonArray.length()];
-                    String child[][] =new String[jsonArray.length()][jsonArray.length()];
+                    String child[][] =new String[jsonArray.length()][1];
                     for(int i =0; i<jsonArray.length();i++){
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
 
@@ -195,11 +195,11 @@ public class Recent extends Fragment {
                     for(int j =0 ;j<jsonArray.length();j++)
                     {
 
-                        for(int k =0;k<jsonArray.length();k++){
+                        for(int k =0;k<1;k++){
 
-                                JSONObject json = jsonArray.getJSONObject(k);
+                                JSONObject json = jsonArray.getJSONObject(j);
                                 child[j][k] = json.getString("abstract");
-                            
+
                                 System.out.println("ONN" + child[j][k]);
 
 

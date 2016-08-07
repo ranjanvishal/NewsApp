@@ -190,16 +190,18 @@ public class Recent extends Fragment {
 
                         strings[i] =jsonObject.getString("title");
                         System.out.println("HG"+strings[i]);
+                    }
 
-                        for(int j =0 ;j<jsonArray.length();j++){
-                        child[j][j+1] =jsonObject.getString("abstract");
+                    for(int j =0 ;j<jsonArray.length();j++){
+                          JSONObject json =jsonArray.getJSONObject(j);
+                          child[j][j+1] =json.getString("abstract");
                             System.out.println("ONN"+child[j][j+1]);
 
 
                     }
                         children =child;
                         groups =strings;
-                    }
+
 
 
 

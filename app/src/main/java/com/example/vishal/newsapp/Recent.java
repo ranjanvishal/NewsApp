@@ -184,7 +184,7 @@ public class Recent extends Fragment {
                     JSONObject jsonRootObject = new JSONObject(convertStreamToString(inputStream));
                     JSONArray jsonArray =jsonRootObject.getJSONArray("results");
                     String strings[] = new String[jsonArray.length()];
-                    String child[][] =new String[jsonArray.length()][jsonArray.length()];
+                    String child[][] =new String[jsonArray.length()][jsonArray.length()+1];
                     for(int i =0; i<jsonArray.length();i++){
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
 

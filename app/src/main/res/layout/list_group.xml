@@ -4,8 +4,8 @@
 
     <ImageView
         android:src="@drawable/pic1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -14,10 +14,11 @@
         android:layout_marginTop="10dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Description"
+        android:textStyle="italic"
         android:id="@+id/textView2"
         android:layout_toRightOf="@+id/imageView"
         android:layout_alignParentRight="true"
@@ -25,11 +26,12 @@
         android:layout_alignBottom="@+id/imageView" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:id="@+id/textView"
+        android:textStyle="bold"
         android:layout_above="@+id/textView2"
         android:layout_toRightOf="@+id/imageView"
         android:layout_alignRight="@+id/textView2"

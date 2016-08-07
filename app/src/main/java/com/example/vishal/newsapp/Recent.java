@@ -2,6 +2,7 @@ package com.example.vishal.newsapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,30 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
+
 
 public class Recent extends Fragment {
 
+
+    String api_key ="822ec150d7b145a5b5f8c146618e9d6d";
     View rootView;
+
     ExpandableListView lv;
-    private String[] groups;
-    private String[][] children;
+    public String[] groups =new String[]{};
+    public String[][] children =new String[][]{{}};
+
+
 
 
     public Recent() {
@@ -24,22 +42,8 @@ public class Recent extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startThread();
 
-        groups = new String[]{"News1", "News2", "News3", "News4","News5","News6","News7","News8","News9","News10"};
-
-        children = new String[][]{
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-                {"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-
-        };
     }
 
     @Override
@@ -47,6 +51,12 @@ public class Recent extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_lineup, container, false);
 
         return rootView;
+
+    }
+
+    public static String convertStreamToString(java.io.InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
     }
 
     @Override
@@ -58,6 +68,7 @@ public class Recent extends Fragment {
         lv.setGroupIndicator(null);
 
     }
+
 
     public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -153,6 +164,68 @@ public class Recent extends Fragment {
             TextView text;
         }
     }
+    //https://api.nytimes.com/svc/topstories/v1/home.json?
+// api-key=822ec150d7b145a5b5f8c146618e9d6d
+    protected void startThread() {
+
+        final String stringUrl ="https://api.nytimes.com/svc/topstories/v1/home.json?" +
+                "api-key="+api_key;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                HttpsURLConnection httpsURLConnection =null;
+                InputStream inputStream =null;
+                try {
+                    URL url =new URL(stringUrl);
+                    httpsURLConnection =(HttpsURLConnection) url.openConnection();
+                    httpsURLConnection.setConnectTimeout(10000);
+                    inputStream =httpsURLConnection.getInputStream();
+                    JSONObject jsonRootObject = new JSONObject(convertStreamToString(inputStream));
+                    JSONArray jsonArray =jsonRootObject.getJSONArray("results");
+                    String strings[] = new String[jsonArray.length()];
+                    String child[][] =new String[jsonArray.length()][jsonArray.length()];
+                    for(int i =0; i<jsonArray.length();i++){
+                        JSONObject jsonObject =jsonArray.getJSONObject(i);
+
+                        strings[i] =jsonObject.getString("title");
+                        System.out.println("HG"+strings[i]);
+
+                        for(int j =0 ;j<jsonArray.length();j++){
+                        child[j][j+1] =jsonObject.getString("abstract");
+                            System.out.println("ONN"+child[j][j+1]);
+
+
+                    }
+                        children =child;
+                        groups =strings;
+                    }
+
+
+
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }).start();
+
+
+
+
+
+
+
+    }
+
+
 }
 
 

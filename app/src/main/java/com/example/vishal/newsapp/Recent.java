@@ -196,10 +196,10 @@ public class Recent extends Fragment {
                     {
 
                         for(int k =0;k<jsonArray.length();k++){
-                            if(j==k) {
+
                                 JSONObject json = jsonArray.getJSONObject(k);
                                 child[j][k] = json.getString("abstract");
-                            }
+                            
                                 System.out.println("ONN" + child[j][k]);
 
 

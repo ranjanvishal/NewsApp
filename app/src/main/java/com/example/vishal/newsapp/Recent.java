@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -30,9 +32,8 @@ public class Recent extends Fragment {
     View rootView;
 
     ExpandableListView lv;
-    public String[] groups =new String[]{};
-    public String[][] children =new String[][]{{}};
-
+    public List<String> groups;
+    public HashMap<String, ArrayList<String>> children;
 
 
 
@@ -73,10 +74,10 @@ public class Recent extends Fragment {
     public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         private final LayoutInflater inf;
-        private String[] groups;
-        private String[][] children;
+        private List<String> groups;
+        private HashMap<String, ArrayList<String>> children;
 
-        public ExpandableListAdapter(String[] groups, String[][] children) {
+        public ExpandableListAdapter(List<String> groups, HashMap<String, ArrayList<String>> children) {
             this.groups = groups;
             this.children = children;
             inf = LayoutInflater.from(getActivity());
@@ -84,22 +85,21 @@ public class Recent extends Fragment {
 
         @Override
         public int getGroupCount() {
-            return groups.length;
+            return groups.size();
         }
 
         @Override
         public int getChildrenCount(int groupPosition) {
-            return children[groupPosition].length;
+            return children.get(this.groups.get(groupPosition)).size();
         }
 
         @Override
         public Object getGroup(int groupPosition) {
-            return groups[groupPosition];
+            return this.groups.get(groupPosition);
         }
-
         @Override
         public Object getChild(int groupPosition, int childPosition) {
-            return children[groupPosition][childPosition];
+            return this.children.get(this.groups.get(groupPosition)).get(childPosition);
         }
 
         @Override
@@ -183,8 +183,8 @@ public class Recent extends Fragment {
                     inputStream =httpsURLConnection.getInputStream();
                     JSONObject jsonRootObject = new JSONObject(convertStreamToString(inputStream));
                     JSONArray jsonArray =jsonRootObject.getJSONArray("results");
-                    String strings[] = new String[jsonArray.length()];
-                    String child[][] =new String[jsonArray.length()][jsonArray.length()+1];
+                    List<String> strings = new String[jsonArray.length()];
+                    HashMap<String, ArrayList<String>> child =new String[jsonArray.length()][jsonArray.length()+1];
                     for(int i =0; i<jsonArray.length();i++){
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
 
@@ -193,14 +193,14 @@ public class Recent extends Fragment {
                     }
 
                     for(int j =0 ;j<jsonArray.length();j++){
-                          JSONObject json =jsonArray.getJSONObject(j);
-                          child[j][j+1] =json.getString("abstract");
-                            System.out.println("ONN"+child[j][j+1]);
+                        JSONObject json =jsonArray.getJSONObject(j);
+                        child[j][j+1] =json.getString("abstract");
+                        System.out.println("ONN"+child[j][j+1]);
 
 
                     }
-                        children =child;
-                        groups =strings;
+                    children =child;
+                    groups =strings;
 
 
 
@@ -229,6 +229,3 @@ public class Recent extends Fragment {
 
 
 }
-
-
-

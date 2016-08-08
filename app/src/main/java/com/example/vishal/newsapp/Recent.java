@@ -2,6 +2,8 @@ package com.example.vishal.newsapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -89,6 +91,7 @@ public class Recent extends Fragment {
 
 
     }
+
 
 
     public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -214,11 +217,13 @@ public class Recent extends Fragment {
 
                     String group[] = new String[jsonArray.length()];
                     final String imageUrls[] = new String[jsonArray.length()];
+                    final String clickUrls[] =new String [jsonArray.length()];
                     String child[][] =new String[jsonArray.length()][1];
                     Log.e(TAG, "run: " + jsonArray.getJSONObject(0));
                     for(int i =0; i<jsonArray.length();i++){
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
                         group[i] =jsonObject.getString("title");
+                        clickUrls[i] =jsonObject.getString("url");
                         String multimedia =jsonObject.getString("multimedia");
                         Log.e(TAG, "run: multimedia: "+ multimedia);
                         if(multimedia.length()>0){
@@ -257,6 +262,17 @@ public class Recent extends Fragment {
                         public void run() {
                             lv.setAdapter(new ExpandableListAdapter(groups, children, imageUrls));
                             lv.setGroupIndicator(null);
+                            lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                                @Override
+                                public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                                    Intent intent =new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(clickUrls[childPosition]));
+
+                                    startActivity(intent);
+
+                                    return false;
+                                }
+                            });
                         }
                     });
 

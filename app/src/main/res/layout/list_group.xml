@@ -4,8 +4,8 @@
 
     <ImageView
         android:src="@drawable/pic1"
-        android:layout_width="40dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

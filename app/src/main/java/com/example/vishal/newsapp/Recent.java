@@ -1,6 +1,7 @@
 package com.example.vishal.newsapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,9 +32,11 @@ import javax.net.ssl.HttpsURLConnection;
 public class Recent extends Fragment {
 
 
+    private static final String TAG = "Recent";
     String api_key ="822ec150d7b145a5b5f8c146618e9d6d";
     View rootView;
-
+    ImageView image;
+    Context mContext;
     Activity activity;
     ExpandableListView lv;
     public String[] groups =new String[]{};
@@ -52,7 +58,7 @@ public class Recent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_lineup, container, false);
-
+         image = (ImageView) rootView.findViewById(R.id.imageView);
         return rootView;
 
     }
@@ -61,6 +67,12 @@ public class Recent extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.activity = activity;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 
     public static String convertStreamToString(java.io.InputStream is) {
@@ -82,10 +94,12 @@ public class Recent extends Fragment {
         private final LayoutInflater inf;
         private String[] groups;
         private String[][] children;
+        private String[] imageUrls;
 
-        public ExpandableListAdapter(String[] groups, String[][] children) {
+        public ExpandableListAdapter(String[] groups, String[][] children, String[] imageUrls) {
             this.groups = groups;
             this.children = children;
+            this.imageUrls = imageUrls;
             inf = LayoutInflater.from(getActivity());
         }
 
@@ -152,12 +166,14 @@ public class Recent extends Fragment {
 
                 holder = new ViewHolder();
                 holder.text = (TextView) convertView.findViewById(R.id.textView);
+                holder.imageNews = (ImageView) convertView.findViewById(R.id.imageView);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
             holder.text.setText(getGroup(groupPosition).toString());
+            Picasso.with(mContext).load(imageUrls[groupPosition]).into(holder.imageNews);
 
             return convertView;
         }
@@ -169,6 +185,7 @@ public class Recent extends Fragment {
 
         private class ViewHolder {
             TextView text;
+            ImageView imageNews;
         }
     }
     //https://api.nytimes.com/svc/topstories/v1/home.json?
@@ -188,14 +205,29 @@ public class Recent extends Fragment {
                     httpsURLConnection =(HttpsURLConnection) url.openConnection();
                     httpsURLConnection.setConnectTimeout(100000000);
                     inputStream =httpsURLConnection.getInputStream();
+
                     JSONObject jsonRootObject = new JSONObject(convertStreamToString(inputStream));
                     JSONArray jsonArray =jsonRootObject.getJSONArray("results");
+                    JSONArray imageArray;
+
                     String group[] = new String[jsonArray.length()];
+                    final String imageUrls[] = new String[jsonArray.length()];
                     String child[][] =new String[jsonArray.length()][1];
+                    Log.e(TAG, "run: " + jsonArray.getJSONObject(0));
                     for(int i =0; i<jsonArray.length();i++){
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
-
                         group[i] =jsonObject.getString("title");
+                        String multimedia =jsonObject.getString("multimedia");
+                        Log.e(TAG, "run: multimedia: "+ multimedia);
+                        if(multimedia.length()>0){
+                            imageArray = new JSONArray(multimedia.substring(multimedia.indexOf("["), multimedia.indexOf("]")+1));
+                            imageUrls[i] = imageArray.getJSONObject(0).getString("url");
+                        }
+                        else {
+                            imageUrls[i] = "https://static01.nyt.com/images/2016/08/06/upshot/07UP-Growth/07UP-Growth-thumbStandard.jpg";
+                        }
+
+
                         System.out.println("HG"+group[i]);
                     }
 
@@ -212,26 +244,39 @@ public class Recent extends Fragment {
 
                         }
 
-
-
                     }
+
                     children =child;
                     groups =group;
+
 
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            lv.setAdapter(new ExpandableListAdapter(groups, children));
+                            lv.setAdapter(new ExpandableListAdapter(groups, children, imageUrls));
                             lv.setGroupIndicator(null);
                         }
                     });
 
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
+                } finally {
+                    if (httpsURLConnection != null) {
+                        httpsURLConnection.disconnect();
+                    }
+                    try {
+                        if (inputStream != null) {
+                            inputStream.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
 
             }
+
+
         }).start();
 
 

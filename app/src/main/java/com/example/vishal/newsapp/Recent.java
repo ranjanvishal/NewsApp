@@ -28,8 +28,6 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 
 public class Recent extends Fragment {
 
@@ -37,7 +35,7 @@ public class Recent extends Fragment {
     private static final String TAG = "Recent";
     String api_key ="822ec150d7b145a5b5f8c146618e9d6d";
     View rootView;
-    CircleImageView image;
+    ImageView image;
     Context mContext;
     Activity activity;
     ExpandableListView lv;
@@ -60,7 +58,7 @@ public class Recent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_lineup, container, false);
-         image = (CircleImageView) rootView.findViewById(R.id.imageView);
+         image = (ImageView) rootView.findViewById(R.id.imageView);
         return rootView;
 
     }
@@ -168,7 +166,7 @@ public class Recent extends Fragment {
 
                 holder = new ViewHolder();
                 holder.text = (TextView) convertView.findViewById(R.id.textView);
-                holder.imageNews = (CircleImageView) convertView.findViewById(R.id.imageView);
+                holder.imageNews = (ImageView) convertView.findViewById(R.id.imageView);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -187,7 +185,7 @@ public class Recent extends Fragment {
 
         private class ViewHolder {
             TextView text;
-            CircleImageView imageNews;
+            ImageView imageNews;
         }
     }
     //https://api.nytimes.com/svc/topstories/v1/home.json?

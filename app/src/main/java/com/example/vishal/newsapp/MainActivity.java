@@ -2,21 +2,40 @@ package com.example.vishal.newsapp;
 
 import android.app.ActionBar;
 import android.app.ActionBar.TabListener;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public  class MainActivity extends FragmentActivity implements TabListener {
     public ViewPager viewPager;
     public TabAdapter tabAdapter;
     public android.app.ActionBar actionBar;
     public String [] tabNames ={"Recent","National","International"};
+    private String [] Titles;
+    private DrawerLayout DrawerLayout;
+    private ListView DrawerList;
 
     @SuppressWarnings("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Titles = new String[]{"Recent","Sports", "Movies","Gaming","Setting"};
+        DrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        DrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, Titles));
+        DrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+
         viewPager = (ViewPager) findViewById(R.id.pager);
         tabAdapter = new TabAdapter(getSupportFragmentManager());
         viewPager.setAdapter(tabAdapter);
@@ -51,6 +70,9 @@ public  class MainActivity extends FragmentActivity implements TabListener {
 
 
 
+
+
+
     @Override
     public void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
         viewPager.setCurrentItem(tab.getPosition());
@@ -64,5 +86,19 @@ public  class MainActivity extends FragmentActivity implements TabListener {
     @Override
     public void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
 
+    }
+
+    private class DrawerItemClickListener implements android.widget.AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+        Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
+        DrawerList.setItemChecked(position, true);
+        setTitle(Titles[position]);
+        DrawerLayout.closeDrawer(DrawerList);
     }
 }

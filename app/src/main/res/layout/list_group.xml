@@ -12,8 +12,8 @@
         app:civ_border_color="#FF000000" />
 
     <TextView
-        android:layout_width= "match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width= "wrap_content"
+        android:layout_height="20dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Description"
         android:textStyle="italic"
@@ -24,8 +24,8 @@
         android:layout_alignBottom="@+id/imageView" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:layout_weight="1"
@@ -33,8 +33,7 @@
         android:textStyle="bold"
         android:layout_above="@+id/textView2"
         android:layout_toRightOf="@+id/imageView"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
+        android:layout_alignRight="@+id/textView2" />
 
 
 </RelativeLayout>

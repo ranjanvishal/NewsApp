@@ -3,6 +3,8 @@ package com.example.vishal.newsapp;
 import android.app.ActionBar;
 import android.app.ActionBar.TabListener;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -27,7 +29,7 @@ public  class MainActivity extends FragmentActivity implements TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Titles = new String[]{"Recent","Sports", "Movies","Gaming","Setting"};
+        Titles = new String[]{"Recent","International", "National","Gaming","Setting"};
         DrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         DrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -101,4 +103,7 @@ public  class MainActivity extends FragmentActivity implements TabListener {
         setTitle(Titles[position]);
         DrawerLayout.closeDrawer(DrawerList);
     }
+
+
 }
+

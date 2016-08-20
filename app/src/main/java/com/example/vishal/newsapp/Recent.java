@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,9 +23,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -35,7 +32,7 @@ public class Recent extends Fragment {
 
 
     private static final String TAG = "Recent";
-    String api_key ="822ec150d7b145a5b5f8c146618e9d6d";
+    String api_key ="6350aaae004949039a2cc5a804fe6bd1";
     View rootView;
     ImageView image;
     Context mContext;
@@ -206,7 +203,7 @@ public class Recent extends Fragment {
                 try {
                     URL url =new URL(stringUrl);
                     httpsURLConnection =(HttpsURLConnection) url.openConnection();
-                    httpsURLConnection.setConnectTimeout(100000000);
+                    httpsURLConnection.setConnectTimeout(10000);
                     inputStream =httpsURLConnection.getInputStream();
 
                     JSONObject jsonRootObject = new JSONObject(convertStreamToString(inputStream));

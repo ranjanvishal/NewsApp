@@ -23,8 +23,7 @@ public class TabAdapter extends FragmentPagerAdapter {
                 return new Recent();
             case 1:
                 return new National();
-            case 2:
-                return new International();
+
 
 
         }
@@ -34,6 +33,6 @@ public class TabAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 }

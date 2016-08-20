@@ -29,7 +29,7 @@ public  class MainActivity extends FragmentActivity implements TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Titles = new String[]{"Recent","International", "National","Gaming","Setting"};
+        Titles = new String[]{"Recent","National","Gaming","Setting"};
         DrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         DrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -45,7 +45,7 @@ public  class MainActivity extends FragmentActivity implements TabListener {
         assert actionBar != null;
         actionBar.setHomeButtonEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        for(int i =0; i<3;i++)
+        for(int i =0; i<2;i++)
         {
             actionBar.addTab(actionBar.newTab().setText(tabNames[i]).setTabListener(this));
          }

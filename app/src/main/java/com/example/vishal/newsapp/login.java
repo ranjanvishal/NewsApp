@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 
 public class login extends Activity  {
-    Button b1,b2;
-    EditText ed1,ed2;
+    Button button1,button2;
+    EditText editText1,editText2;
 
     TextView tx1;
     int counter = 3;
@@ -23,23 +23,22 @@ public class login extends Activity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        b1=(Button)findViewById(R.id.button);
-        ed1=(EditText)findViewById(R.id.editText);
-        ed2=(EditText)findViewById(R.id.editText2);
+        button1=(Button)findViewById(R.id.button);
+        editText1=(EditText)findViewById(R.id.editText);
+        editText2=(EditText)findViewById(R.id.editText2);
 
-        b2=(Button)findViewById(R.id.button2);
+        button2=(Button)findViewById(R.id.button2);
         tx1=(TextView)findViewById(R.id.textView3);
         tx1.setVisibility(View.GONE);
 
-        b1.setOnClickListener(new View.OnClickListener() {
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ed1.getText().toString().equals("admin") &&
+                if (editText1.getText().toString().equals("vishal") &&
 
-                        ed2.getText().toString().equals("admin")) {
-                    Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+                        editText2.getText().toString().equals("vishal")) {
                 } else {
-                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_SHORT).show();
 
                     tx1.setVisibility(View.VISIBLE);
                     tx1.setBackgroundColor(Color.RED);
@@ -47,13 +46,13 @@ public class login extends Activity  {
                     tx1.setText(Integer.toString(counter));
 
                     if (counter == 0) {
-                        b1.setEnabled(false);
+                        button2.setEnabled(false);
                     }
                 }
             }
         });
 
-        b2.setOnClickListener(new View.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

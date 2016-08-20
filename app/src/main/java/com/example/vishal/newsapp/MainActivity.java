@@ -5,6 +5,7 @@ import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -19,8 +20,8 @@ public  class MainActivity extends FragmentActivity implements TabListener {
     public ViewPager viewPager;
     public TabAdapter tabAdapter;
     public android.app.ActionBar actionBar;
-    public String [] tabNames ={"Recent","National","International"};
-    private String [] Titles;
+    public String[] tabNames = {"Recent", "National", "International"};
+    private String[] Titles;
     private DrawerLayout DrawerLayout;
     private ListView DrawerList;
 
@@ -29,13 +30,16 @@ public  class MainActivity extends FragmentActivity implements TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Titles = new String[]{"Recent","National","Gaming","Setting"};
+        Titles = new String[]{"Recent", "National", "Gaming", "Setting"};
         DrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         DrawerList = (ListView) findViewById(R.id.left_drawer);
 
         DrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, Titles));
         DrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
 
 
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -45,16 +49,14 @@ public  class MainActivity extends FragmentActivity implements TabListener {
         assert actionBar != null;
         actionBar.setHomeButtonEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        for(int i =0; i<2;i++)
-        {
+        for (int i = 0; i < 2; i++) {
             actionBar.addTab(actionBar.newTab().setText(tabNames[i]).setTabListener(this));
-         }
+        }
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int postion) {
                 actionBar.setSelectedNavigationItem(postion);
             }
-
 
 
             @Override
@@ -68,11 +70,6 @@ public  class MainActivity extends FragmentActivity implements TabListener {
         });
 
     }
-
-
-
-
-
 
 
     @Override
@@ -93,17 +90,25 @@ public  class MainActivity extends FragmentActivity implements TabListener {
     private class DrawerItemClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+            displayView(position);
         }
     }
 
-    private void selectItem(int position) {
-        Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
+
+    private void displayView(int position) {
+        switch (position) {
+            case 0:
+                startActivity(new Intent(MainActivity.this, login.class));
+                return;
+            default:
+                break;
+
+        }
         DrawerList.setItemChecked(position, true);
-        setTitle(Titles[position]);
+        DrawerList.setSelection(position);
         DrawerLayout.closeDrawer(DrawerList);
+
+
     }
-
-
 }
 

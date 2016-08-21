@@ -5,5 +5,6 @@
     android:text="New Text"
     android:textSize="20dp"
     android:gravity="center"
+    android:clickable="true"
     android:textColor="#fff"
     android:id="@+id/textView"/>

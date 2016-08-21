@@ -8,8 +8,10 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,11 +23,13 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
     public TabAdapter tabAdapter;
     public android.app.ActionBar actionBar;
     public String[] tabNames = {"Recent", "National", "International"};
-
+    private static final String TAG = "MainActivity";
     private DrawerLayout drawerLayout;
     private ListView listView;
     private String[] Navigation;
-    @SuppressWarnings("WrongConstant")
+    final String[] fragments ={
+            "com.example.vishal.newsapp.Recent",
+            "com.example.vishal.newsapp.National"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,19 +38,26 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         Navigation=getResources().getStringArray(R.array.Navigation);
         listView= (ListView) findViewById(R.id.drawer_list);
         listView.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, Navigation));
-        listView.setOnItemClickListener(this);
+                android.R.layout.simple_list_item_1, Navigation));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: Error");
+
+
+            }
+        });
 
 
 
         viewPager = (ViewPager) findViewById(R.id.pager);
-        tabAdapter = new TabAdapter(getSupportFragmentManager());
+        tabAdapter = new TabAdapter(getSupportFragmentManager(),getApplicationContext());
         viewPager.setAdapter(tabAdapter);
         actionBar = getActionBar();
         assert actionBar != null;
         actionBar.setHomeButtonEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             actionBar.addTab(actionBar.newTab().setText(tabNames[i]).setTabListener(this));
         }
 
@@ -87,11 +98,12 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(this, Navigation[position]+"was selected",Toast.LENGTH_LONG).show();
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+
+
+
     }
 
-
-
-    }
+}
 

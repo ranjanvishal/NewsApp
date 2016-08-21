@@ -225,7 +225,6 @@ public class National extends Fragment {
                     //final String src[]=new String[jsonArray.length()];
                     final String clickUrls[] =new String [jsonArray.length()];
                     String child[][] =new String[jsonArray.length()][1];
-                    Log.e(TAG, "run: " + jsonArray.getJSONObject(0));
                     for(int i =0; i<jsonArray.length();i++){
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
                         JSONObject link=jsonObject.getJSONObject("link");
@@ -235,9 +234,6 @@ public class National extends Fragment {
                         imageUrls[i]=multimedia.getString("src");
 
 
-
-
-                        System.out.println("HG" + group[i]);
                     }
 
                     for(int j =0 ;j<jsonArray.length();j++)
@@ -248,7 +244,6 @@ public class National extends Fragment {
                            JSONObject json = jsonArray.getJSONObject(j);
                            child[j][k] = json.getString("summary_short");
 
-                            System.out.println("ONN" + child[j][k]);
 
 
                         }

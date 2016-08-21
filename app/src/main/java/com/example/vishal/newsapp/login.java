@@ -64,4 +64,7 @@ public class login extends Activity  {
     }
 
 
+    public void methodApe(View view) {
+
+    }
 }

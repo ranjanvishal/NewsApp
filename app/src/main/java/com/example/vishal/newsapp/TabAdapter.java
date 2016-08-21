@@ -1,5 +1,6 @@
 package com.example.vishal.newsapp;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,7 +11,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class TabAdapter extends FragmentPagerAdapter {
 
 
-    public TabAdapter(FragmentManager fm) {
+    public TabAdapter(FragmentManager fm, Context applicationContext)
+    {
         super(fm);
     }
 
@@ -23,16 +25,20 @@ public class TabAdapter extends FragmentPagerAdapter {
                 return new Recent();
             case 1:
                 return new National();
-
+            case 2:
+                return  new International();
+            default:
+                return null;
 
 
         }
-        return null;
 
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
+
+
 }

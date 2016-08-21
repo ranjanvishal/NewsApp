@@ -220,7 +220,6 @@ public class Recent extends Fragment {
                         group[i] =jsonObject.getString("title");
                         clickUrls[i] =jsonObject.getString("url");
                         String multimedia =jsonObject.getString("multimedia");
-                        Log.e(TAG, "run: multimedia: "+ multimedia);
                         if(multimedia.length()>0){
                             imageArray = new JSONArray(multimedia.substring(multimedia.indexOf("["), multimedia.indexOf("]")+1));
                             imageUrls[i] = imageArray.getJSONObject(0).getString("url");
@@ -229,8 +228,6 @@ public class Recent extends Fragment {
                             imageUrls[i] = "https://static01.nyt.com/images/2016/08/06/upshot/07UP-Growth/07UP-Growth-thumbStandard.jpg";
                         }
 
-
-                        System.out.println("HG"+group[i]);
                     }
 
                     for(int j =0 ;j<jsonArray.length();j++)
@@ -240,8 +237,6 @@ public class Recent extends Fragment {
 
                             JSONObject json = jsonArray.getJSONObject(j);
                             child[j][k] = json.getString("abstract");
-
-                            System.out.println("ONN" + child[j][k]);
 
 
                         }

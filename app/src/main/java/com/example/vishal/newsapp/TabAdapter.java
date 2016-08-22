@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 /**
  * Created by vishal on 05/08/16.
  */
-public class TabAdapter extends FragmentPagerAdapter {
+public class TabAdapter extends SmartFragmentStatePagerAdapter {
 
 
     public TabAdapter(FragmentManager fm)
@@ -37,6 +37,11 @@ public class TabAdapter extends FragmentPagerAdapter {
 
     }
 
+
+    @Override
+    public float getPageWidth (int position) {
+        return 1f;
+    }
     @Override
     public int getItemPosition(Object object) {
         return POSITION_UNCHANGED;

@@ -8,6 +8,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -49,7 +50,10 @@ public  class MainActivity extends FragmentActivity {
 
 
         viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setClipToPadding(false);
+        viewPager.setPageMargin(12);
         tabAdapter = new TabAdapter(getSupportFragmentManager());
+
         viewPager.setAdapter(tabAdapter);
         viewPager.getCurrentItem();
         viewPager.setCurrentItem(3);
@@ -64,8 +68,8 @@ public  class MainActivity extends FragmentActivity {
         //}
 
 
-
-
+        //tabAdapter.getRegisteredFragment(0);
+        tabAdapter.getRegisteredFragment(viewPager.getCurrentItem());
         viewPager.setOffscreenPageLimit(3);
 
 
@@ -118,4 +122,5 @@ public  class MainActivity extends FragmentActivity {
 
 
 }
+
 

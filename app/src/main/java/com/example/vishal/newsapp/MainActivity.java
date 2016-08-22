@@ -1,24 +1,17 @@
 package com.example.vishal.newsapp;
 
-import android.app.ActionBar;
-import android.app.ActionBar.TabListener;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public  class MainActivity extends FragmentActivity {
+public  class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
     public ViewPager viewPager;
     public TabAdapter tabAdapter;
     //public android.app.ActionBar actionBar;
@@ -28,24 +21,17 @@ public  class MainActivity extends FragmentActivity {
     private ListView listView;
     private String[] Navigation;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Navigation=getResources().getStringArray(R.array.Navigation);
-        listView= (ListView) findViewById(R.id.drawer_list);
+        Navigation = getResources().getStringArray(R.array.Navigation);
+        listView = (ListView) findViewById(R.id.drawer_list);
         listView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, Navigation));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: Error");
-
-
-            }
-        });
-
+        listView.setOnItemClickListener(this);
 
 
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -53,7 +39,7 @@ public  class MainActivity extends FragmentActivity {
         viewPager.setAdapter(tabAdapter);
         viewPager.getCurrentItem();
         viewPager.setCurrentItem(3);
-       // actionBar = getActionBar();
+        // actionBar = getActionBar();
         //assert actionBar != null;
         //actionBar.setHomeButtonEnabled(true);
         //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -64,8 +50,6 @@ public  class MainActivity extends FragmentActivity {
         //}
 
 
-
-
         viewPager.setOffscreenPageLimit(3);
 
 
@@ -74,7 +58,7 @@ public  class MainActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
 
-               // actionBar.setSelectedNavigationItem(position);
+                // actionBar.setSelectedNavigationItem(position);
             }
 
 
@@ -91,6 +75,22 @@ public  class MainActivity extends FragmentActivity {
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this,Navigation[position]+" was selected",Toast.LENGTH_LONG).show();
+        selectItem(position);
+        }
+
+    public void selectItem(int position){
+        listView.setItemChecked(position,true);
+        setTitle(Navigation[position]);
+    }
+    public void setTitle(String title, Activity getSupportActionBar){
+
+        getSupportActionBar.setTitle(title);
+    }
+
+
 
 
  /*   @Override
@@ -106,16 +106,9 @@ public  class MainActivity extends FragmentActivity {
     @Override
     public void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
 
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
-
-
-
     }*/
 
 
-}
+    }
+
 

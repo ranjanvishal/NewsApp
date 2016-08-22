@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class login extends Activity  {
+public class LoginUser extends Activity  {
     Button button1,button2;
     EditText editText1,editText2;
 
@@ -29,7 +29,6 @@ public class login extends Activity  {
 
         button2=(Button)findViewById(R.id.button2);
         tx1=(TextView)findViewById(R.id.textView3);
-        tx1.setVisibility(View.GONE);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import static com.example.vishal.newsapp.R.drawable.*;
+import static com.example.vishal.newsapp.R.string.drawer_close;
 
 public  class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
     public ViewPager viewPager;
@@ -20,6 +24,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
     private DrawerLayout drawerLayout;
     private ListView listView;
     private String[] Navigation;
+    private ActionBarDrawerToggle drawerListner;
 
 
     @Override
@@ -27,11 +32,28 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerListner=new ActionBarDrawerToggle(this,drawerLayout,R.drawable.pic2,R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                Toast.makeText(MainActivity.this,"Drawer Opened",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                Toast.makeText(MainActivity.this,"Drawer Closed",Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        drawerLayout.setDrawerListener(drawerListner);
+
+
         Navigation = getResources().getStringArray(R.array.Navigation);
         listView = (ListView) findViewById(R.id.drawer_list);
         listView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, Navigation));
         listView.setOnItemClickListener(this);
+
+
 
 
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -89,6 +111,8 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
 
         getSupportActionBar.setTitle(title);
     }
+
+
 
 
 

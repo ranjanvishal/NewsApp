@@ -7,23 +7,21 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * Created by vishal on 05/08/16.
  */
+
 public class International extends Fragment {
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        TextView tv = new TextView(getActivity());
-        tv.setText("International News");
-        tv.setGravity(Gravity.CENTER);
-        tv.setTextColor(Color.WHITE);
-        tv.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        tv.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-        tv.setBackgroundColor(Color.CYAN);
-        tv.setTextAppearance(getActivity(),
-                android.R.style.TextAppearance_Large);
-        return tv;
+
+
+    View rootview;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootview = inflater.inflate(R.layout.international, container, false);
+
+        return rootview;
+
     }
 }

@@ -27,9 +27,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
     private DrawerLayout drawerLayout;
     private ListView listView;
     private String[] Navigation;
-    final String[] fragments ={
-            "com.example.vishal.newsapp.Recent",
-            "com.example.vishal.newsapp.National"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,20 +49,29 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
 
 
         viewPager = (ViewPager) findViewById(R.id.pager);
-        tabAdapter = new TabAdapter(getSupportFragmentManager(),getApplicationContext());
+        tabAdapter = new TabAdapter(getSupportFragmentManager());
         viewPager.setAdapter(tabAdapter);
         actionBar = getActionBar();
         assert actionBar != null;
         actionBar.setHomeButtonEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         for (int i = 0; i < 3; i++) {
+
             actionBar.addTab(actionBar.newTab().setText(tabNames[i]).setTabListener(this));
+
         }
 
 
+
+
+        viewPager.setOffscreenPageLimit(3);
+
+
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
             @Override
             public void onPageSelected(int postion) {
+
                 actionBar.setSelectedNavigationItem(postion);
             }
 
@@ -79,7 +86,9 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
             }
         });
 
+
     }
+
 
 
     @Override
@@ -104,6 +113,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
 
 
     }
+
 
 }
 

@@ -11,10 +11,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class TabAdapter extends FragmentPagerAdapter {
 
 
-    public TabAdapter(FragmentManager fm, Context applicationContext)
+    public TabAdapter(FragmentManager fm)
     {
         super(fm);
     }
+
+
 
     @Override
     public Fragment getItem(int index)
@@ -33,6 +35,11 @@ public class TabAdapter extends FragmentPagerAdapter {
 
         }
 
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_UNCHANGED;
     }
 
     @Override

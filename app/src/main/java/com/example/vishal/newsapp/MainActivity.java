@@ -2,7 +2,9 @@ package com.example.vishal.newsapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -51,7 +53,27 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         listView = (ListView) findViewById(R.id.drawer_list);
         listView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, Navigation));
-        listView.setOnItemClickListener(this);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                                                drawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+                                                    @Override
+                                                    public void onDrawerClosed(View drawerView) {
+                                                        super.onDrawerClosed(drawerView);
+                                                        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+                                                        tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, Navigation[position]));
+                                                        tx.commit();
+                                                    }
+
+                                                });
+                                                drawerLayout.closeDrawer(listView);
+
+
+                                            }
+                                        });
+            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+            tx.replace(R.id.content_frame,Fragment.instantiate(MainActivity.this, Navigation[0]));
+            tx.commit();
 
 
 
@@ -101,7 +123,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(this,Navigation[position]+" was selected",Toast.LENGTH_LONG).show();
         selectItem(position);
-        }
+    }
 
     public void selectItem(int position){
         listView.setItemChecked(position,true);
@@ -121,18 +143,12 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
     public void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
         viewPager.setCurrentItem(tab.getPosition());
     }
-
     @Override
     public void onTabUnselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-
     }
-
     @Override
     public void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-
     }*/
 
 
-    }
-
-
+}

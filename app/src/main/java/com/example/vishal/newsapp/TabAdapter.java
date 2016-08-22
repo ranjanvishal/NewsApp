@@ -16,7 +16,7 @@ public class TabAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-
+       String fragments[]={"Recent","National","International"};
 
     @Override
     public Fragment getItem(int index)
@@ -47,5 +47,8 @@ public class TabAdapter extends FragmentPagerAdapter {
         return 3;
     }
 
-
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return fragments[position];
+    }
 }

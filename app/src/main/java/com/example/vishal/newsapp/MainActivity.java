@@ -18,10 +18,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public  class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener, TabListener {
+public  class MainActivity extends FragmentActivity {
     public ViewPager viewPager;
     public TabAdapter tabAdapter;
-    public android.app.ActionBar actionBar;
+    //public android.app.ActionBar actionBar;
     public String[] tabNames = {"Recent", "National", "International"};
     private static final String TAG = "MainActivity";
     private DrawerLayout drawerLayout;
@@ -51,15 +51,17 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         viewPager = (ViewPager) findViewById(R.id.pager);
         tabAdapter = new TabAdapter(getSupportFragmentManager());
         viewPager.setAdapter(tabAdapter);
-        actionBar = getActionBar();
-        assert actionBar != null;
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        for (int i = 0; i < 3; i++) {
+        viewPager.getCurrentItem();
+        viewPager.setCurrentItem(3);
+       // actionBar = getActionBar();
+        //assert actionBar != null;
+        //actionBar.setHomeButtonEnabled(true);
+        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        //for (int i = 0; i < 3; i++) {
 
-            actionBar.addTab(actionBar.newTab().setText(tabNames[i]).setTabListener(this));
+        //    actionBar.addTab(actionBar.newTab().setText(tabNames[i]).setTabListener(this));
 
-        }
+        //}
 
 
 
@@ -67,22 +69,22 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         viewPager.setOffscreenPageLimit(3);
 
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
-            public void onPageSelected(int postion) {
+            public void onPageSelected(int position) {
 
-                actionBar.setSelectedNavigationItem(postion);
+               // actionBar.setSelectedNavigationItem(position);
             }
 
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
 
 
             @Override
-            public void onPageScrollStateChanged(int arg0) {
+            public void onPageScrollStateChanged(int state) {
             }
         });
 
@@ -91,7 +93,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
 
 
 
-    @Override
+ /*   @Override
     public void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
         viewPager.setCurrentItem(tab.getPosition());
     }
@@ -112,7 +114,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
 
 
 
-    }
+    }*/
 
 
 }

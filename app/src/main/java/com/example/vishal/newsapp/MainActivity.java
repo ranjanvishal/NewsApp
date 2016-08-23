@@ -60,14 +60,13 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
-                                            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                                            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
                                                 drawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
                                                     @Override
                                                     public void onDrawerClosed(View drawerView) {
                                                         super.onDrawerClosed(drawerView);
-                                                        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                                                        tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, fragments[position]));
-                                                        tx.commit();
+                                                        viewPager.getCurrentItem();
+                                                        viewPager.setCurrentItem(position);
                                                     }
 
                                                 });

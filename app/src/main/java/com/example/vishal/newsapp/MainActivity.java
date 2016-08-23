@@ -77,8 +77,8 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
                                             }
                                         });
             FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-            tx.replace(R.id.content_frame,Fragment.instantiate(MainActivity.this, fragments[0]));
-            tx.commit();
+        tx.replace(R.id.content_frame,Fragment.instantiate(MainActivity.this, fragments[0]));
+        tx.commit();
 
 
 
@@ -86,8 +86,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         viewPager = (ViewPager) findViewById(R.id.pager);
         tabAdapter = new TabAdapter(getSupportFragmentManager());
         viewPager.setAdapter(tabAdapter);
-        viewPager.getCurrentItem();
-        viewPager.setCurrentItem(3);
+
         // actionBar = getActionBar();
         //assert actionBar != null;
         //actionBar.setHomeButtonEnabled(true);

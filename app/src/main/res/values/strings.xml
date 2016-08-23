@@ -5,8 +5,7 @@
     <string-array name="Navigation">
         <item>Recent</item>
         <item>National</item>
-        <item>Login</item>
-        <item>Setting</item>
+        <item>International</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

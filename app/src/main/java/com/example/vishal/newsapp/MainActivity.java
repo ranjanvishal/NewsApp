@@ -76,9 +76,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
 
                                             }
                                         });
-            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.content_frame,Fragment.instantiate(MainActivity.this, fragments[0]));
-        tx.commit();
+
 
 
 

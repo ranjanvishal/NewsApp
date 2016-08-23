@@ -131,10 +131,10 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         listView.setItemChecked(position,true);
         setTitle(Navigation[position]);
     }
-    public void setTitle(String title, Activity getSupportActionBar){
+    //public void setTitle(String title, Activity getSupportActionBar){
 
-        getSupportActionBar.setTitle(title);
-    }
+       // getSupportActionBar.setTitle(title);
+    //}
 
 
 

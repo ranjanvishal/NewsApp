@@ -19,16 +19,16 @@ public class TabAdapter extends SmartFragmentStatePagerAdapter {
        String fragments[]={"Recent","National","International"};
 
     @Override
-    public Fragment getItem(int index)
+    public Fragment getItem(int position)
     {
-        switch (index)
+        switch (position)
         {
             case 0:
-                return new Recent();
+                return  Recent.newInstance(0,"Recent");
             case 1:
-                return new National();
+                return National.newInstance(1,"National");
             case 2:
-                return  new International();
+                return  International.newInstance(2,"International");
             default:
                 return null;
 

@@ -17,7 +17,7 @@ import android.widget.Toast;
 import static com.example.vishal.newsapp.R.drawable.*;
 import static com.example.vishal.newsapp.R.string.drawer_close;
 
-public  class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
     public ViewPager viewPager;
     public TabAdapter tabAdapter;
     //public android.app.ActionBar actionBar;
@@ -58,7 +58,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         listView = (ListView) findViewById(R.id.drawer_list);
         ArrayAdapter adapter = new ArrayAdapter(getActionBar().getThemedContext(), android.R.layout.simple_list_item_1, Navigation);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                                                 drawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
@@ -66,7 +66,8 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
                                                     public void onDrawerClosed(View drawerView) {
                                                         super.onDrawerClosed(drawerView);
                                                         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                                                        tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, fragments[position]));
+                                                       tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, fragments[position]));
+
                                                         tx.commit();
                                                     }
 
@@ -78,7 +79,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
                                         });
             FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.content_frame,Fragment.instantiate(MainActivity.this, fragments[0]));
-        tx.commit();
+        tx.commit();*/
 
 
 
@@ -99,6 +100,8 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
 
 
         viewPager.setOffscreenPageLimit(3);
+        viewPager.getCurrentItem();
+        viewPager.setCurrentItem(1);
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

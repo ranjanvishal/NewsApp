@@ -28,9 +28,10 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 
-public class Recent extends Fragment {
+public  class Recent extends Fragment {
 
-
+    private String title;
+    private int page;
     private static final String TAG = "Recent";
     String api_key ="6350aaae004949039a2cc5a804fe6bd1";
     View rootView;
@@ -48,9 +49,21 @@ public class Recent extends Fragment {
 
     }
 
+    public static Recent newInstance(int page, String title) {
+        Recent fragmentFirst = new Recent();
+        Bundle args = new Bundle();
+        args.putInt("someInt", page);
+        args.putString("someTitle", title);
+        fragmentFirst.setArguments(args);
+        return fragmentFirst;
+    }
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startThread();
+        page = getArguments().getInt("someInt", 0);
+        title = getArguments().getString("someTitle");
 
     }
 

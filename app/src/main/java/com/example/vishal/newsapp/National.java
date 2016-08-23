@@ -33,9 +33,10 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 
-public class National extends Fragment {
+public  class National extends Fragment {
 
-
+    private String title;
+    private int page;
     private static final String TAG = "Recent";
     String api_key ="6350aaae004949039a2cc5a804fe6bd1";
     View rootView;
@@ -48,13 +49,24 @@ public class National extends Fragment {
 
 
 
-    public National() {
+    public  National() {
 
     }
+    public static National newInstance(int page, String title) {
+        National fragmentSecond = new National();
+        Bundle args = new Bundle();
+        args.putInt("someInt", page);
+        args.putString("someTitle", title);
+        fragmentSecond.setArguments(args);
+        return fragmentSecond;
+    }
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startThread();
+        page = getArguments().getInt("someInt", 0);
+        title = getArguments().getString("someTitle");
 
     }
 

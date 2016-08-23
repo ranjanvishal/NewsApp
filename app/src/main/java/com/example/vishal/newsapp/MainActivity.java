@@ -27,6 +27,11 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
     private ListView listView;
     private String[] Navigation;
     private ActionBarDrawerToggle drawerListner;
+    final String[] fragments= {
+            "com.example.vishal.newsapp.Recent",
+            "com.example.vishal.newsapp.National",
+            "com.example.vishal.newsapp.International"
+    };
 
 
     @Override
@@ -51,8 +56,8 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
 
         Navigation = getResources().getStringArray(R.array.Navigation);
         listView = (ListView) findViewById(R.id.drawer_list);
-        listView.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, Navigation));
+        ArrayAdapter adapter = new ArrayAdapter(getActionBar().getThemedContext(), android.R.layout.simple_list_item_1, Navigation);
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -61,7 +66,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
                                                     public void onDrawerClosed(View drawerView) {
                                                         super.onDrawerClosed(drawerView);
                                                         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                                                        tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, Navigation[position]));
+                                                        tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, fragments[position]));
                                                         tx.commit();
                                                     }
 
@@ -72,7 +77,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
                                             }
                                         });
             FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-            tx.replace(R.id.content_frame,Fragment.instantiate(MainActivity.this, Navigation[0]));
+            tx.replace(R.id.content_frame,Fragment.instantiate(MainActivity.this, fragments[0]));
             tx.commit();
 
 

@@ -9,8 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import static com.example.vishal.newsapp.R.string.drawer_close;
 public  class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
     public ViewPager viewPager;
     public TabAdapter tabAdapter;
+
     //public android.app.ActionBar actionBar;
     public String[] tabNames = {"Recent", "National", "International"};
     private static final String TAG = "MainActivity";
@@ -98,7 +101,9 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
         viewPager.setOffscreenPageLimit(3);
 
 
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
 
             @Override
             public void onPageSelected(int position) {
@@ -109,6 +114,7 @@ public  class MainActivity extends FragmentActivity implements AdapterView.OnIte
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
 
